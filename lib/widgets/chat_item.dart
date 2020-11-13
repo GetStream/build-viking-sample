@@ -21,6 +21,7 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool canDisplayImage = image != null && image.isNotEmpty;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
@@ -29,10 +30,15 @@ class ChatItem extends StatelessWidget {
           backgroundColor: Colors.white,
           radius: 32,
           child: Center(
-            child: Image.asset(
-              Assets.vikingDash,
-              height: 56.0,
-            ),
+            child: canDisplayImage
+                ? Image.network(
+                    image,
+                    height: 56.0,
+                  )
+                : Image.asset(
+                    Assets.vikingDash,
+                    height: 56.0,
+                  ),
           ),
         ),
         title: Text(

@@ -1,4 +1,5 @@
 import 'package:build_viking/assets.dart';
+import 'package:build_viking/main.dart';
 import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,11 @@ class ChatHomeScreen extends StatelessWidget {
                 (index) => ChatItem(
                   name: "Nick Parsons",
                   lastMessage: "4 Days remaining",
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ConversationScreen(),
+                    ),
+                  ),
                   image: "",
                 ),
               ),

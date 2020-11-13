@@ -26,7 +26,7 @@ class App extends StatelessWidget {
       ),
       home: ApiProvider(
         service: HttpAPIService(),
-        child: ConversationScreen(),
+        child: BuildVikings(),
       ),
     );
   }

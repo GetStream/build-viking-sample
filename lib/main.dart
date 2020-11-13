@@ -1,4 +1,6 @@
 import 'package:build_viking/assets.dart';
+import 'package:build_viking/services/api_service.dart';
+import 'package:build_viking/utils/utils.dart';
 import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +24,10 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFF000A51),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BuildVikings(),
+      home: ApiProvider(
+        service: HttpAPIService(),
+        child: BuildVikings(),
+      ),
     );
   }
 }

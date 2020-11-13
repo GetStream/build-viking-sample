@@ -45,13 +45,49 @@ class _BuildVikingsState extends State<BuildVikings> {
   }
 
   void onScan(String data) {
-    //TODO(Nash):Make API call
-    print(data);
+    //TODO(Nash): Implement when api becomes available
+    // context.apiService.getUserProfile(data);
   }
 
   Future<void> showCamera(bool value) async {
     await Permission.camera.request();
     _showingCamera.value = !value;
+  }
+
+  Widget _buildScanCard() {
+    return ValueListenableBuilder<bool>(
+      valueListenable: _showingCamera,
+      builder: (context, bool value, _) {
+        return AnimatedSwitcher(
+          duration: kThemeAnimationDuration,
+          child: value
+              ? BuildVikingCard(
+                  key: ValueKey<String>("barcode-scanner"),
+                  onTap: () => _showingCamera.value = !value,
+                  child: Container(
+                    height: 132.0,
+                    width: 160.0,
+                    child: QRView(
+                      key: GlobalKey(),
+                      onQRViewCreated: _onQRViewCreated,
+                      overlay: QrScannerOverlayShape(
+                        borderColor: Colors.red,
+                        borderRadius: 10,
+                        borderLength: 30,
+                        borderWidth: 10,
+                        cutOutSize: 300,
+                      ),
+                    ),
+                  ),
+                )
+              : BuildVikingCard(
+                  key: ValueKey<String>("scan-ticket"),
+                  onTap: () => showCamera(value),
+                  child: _ScanTicket(),
+                ),
+        );
+      },
+    );
   }
 
   @override
@@ -78,39 +114,7 @@ class _BuildVikingsState extends State<BuildVikings> {
                 height: 173.0,
               ),
               const SizedBox(height: 48.0),
-              ValueListenableBuilder<bool>(
-                valueListenable: _showingCamera,
-                builder: (context, bool value, _) {
-                  return AnimatedSwitcher(
-                    duration: kThemeAnimationDuration,
-                    child: value
-                        ? BuildVikingCard(
-                            key: ValueKey<String>("barcode-scanner"),
-                            onTap: () => _showingCamera.value = !value,
-                            child: Container(
-                              height: 132.0,
-                              width: 160.0,
-                              child: QRView(
-                                key: GlobalKey(),
-                                onQRViewCreated: _onQRViewCreated,
-                                overlay: QrScannerOverlayShape(
-                                  borderColor: Colors.red,
-                                  borderRadius: 10,
-                                  borderLength: 30,
-                                  borderWidth: 10,
-                                  cutOutSize: 300,
-                                ),
-                              ),
-                            ),
-                          )
-                        : BuildVikingCard(
-                            key: ValueKey<String>("scan-ticket"),
-                            onTap: () => showCamera(value),
-                            child: _ScanTicket(),
-                          ),
-                  );
-                },
-              ),
+              _buildScanCard(),
               Flexible(child: FractionallySizedBox(heightFactor: 0.3)),
             ],
           ),

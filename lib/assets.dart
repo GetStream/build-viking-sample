@@ -4,4 +4,5 @@ class Assets {
   static const streamBanner = "assets/stream_banner.png";
   static const chatLogo = "assets/viking_chat_logo.png";
   static const vikingVillage = "assets/viking_village.png";
+  static const vikingDash = "assets/viking_dash.png";
 }

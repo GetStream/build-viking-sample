@@ -4,16 +4,25 @@ import 'package:build_viking/api.dart';
 import 'package:build_viking/models/user_model.dart';
 import 'package:build_viking/services/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class HttpAPIService implements APIService {
-  const HttpAPIService(this.client) : assert(client != null);
+  HttpAPIService(this.client, this.streamClient)
+      : assert(client != null),
+        assert(streamClient != null);
 
   final http.Client client;
+  final Client streamClient;
 
   @override
   Future<VikingUser> getUserProfile(String ticketID) async {
     final _rawId = parseTicketUrl(ticketID);
-    return await _fetchUserAccount(_rawId);
+    final _user = await _fetchUserAccount(_rawId);
+    streamClient.setUser(
+      User(extraData: {"name": _user.name, "image": _user.image}),
+      _user.token,
+    );
+    return _user;
   }
 
   Future<VikingUser> _fetchUserAccount(final String ticketID) async {
@@ -22,7 +31,7 @@ class HttpAPIService implements APIService {
       final http.Response response = await client.post(
         API.apiUrl,
         body: jsonEncode({
-          "id": ticketID, //'pFbDZCGsZIrrAmqELjz6F8w'
+          "id": "pFbDZCGsZIrrAmqELjz6F8w",
         }), // TODO:Replace with variable once API is fixed.
         headers: {"Content-Type": "application/json"},
       );

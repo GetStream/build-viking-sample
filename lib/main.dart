@@ -5,6 +5,7 @@ import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -25,7 +26,7 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: ApiProvider(
-        service: HttpAPIService(),
+        service: HttpAPIService(http.Client()),
         child: BuildVikings(),
       ),
     );

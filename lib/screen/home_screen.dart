@@ -1,4 +1,5 @@
 import 'package:build_viking/assets.dart';
+import 'package:build_viking/screen/chat_home_screen.dart';
 import 'package:build_viking/utils/utils.dart';
 import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,11 @@ class _BuildVikingsState extends State<BuildVikings> {
       try {
         await context.apiService.getUserProfile(data);
         canMakeRequest = true;
+        context.nav.pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ChatHomeScreen(),
+          ),
+        );
       } catch (e) {
         canMakeRequest = true;
         _hasError.value = true;

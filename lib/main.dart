@@ -65,20 +65,9 @@ class _BuildVikingsState extends State<BuildVikings> {
               ? BuildVikingCard(
                   key: ValueKey<String>("barcode-scanner"),
                   onTap: () => _showingCamera.value = !value,
-                  child: Container(
-                    height: 132.0,
-                    width: 160.0,
-                    child: QRView(
-                      key: GlobalKey(),
-                      onQRViewCreated: _onQRViewCreated,
-                      overlay: QrScannerOverlayShape(
-                        borderColor: Colors.red,
-                        borderRadius: 10,
-                        borderLength: 30,
-                        borderWidth: 10,
-                        cutOutSize: 300,
-                      ),
-                    ),
+                  child: _TicketScanner(
+                    onQRViewCreated: _onQRViewCreated,
+                    hasError: _hasError,
                   ),
                 )
               : BuildVikingCard(

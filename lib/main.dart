@@ -40,14 +40,25 @@ class BuildVikings extends StatefulWidget {
 
 class _BuildVikingsState extends State<BuildVikings> {
   ValueNotifier<bool> _showingCamera = ValueNotifier(false);
+  ValueNotifier<bool> _hasError = ValueNotifier(false);
+  bool canMakeRequest = true;
 
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((onScan));
   }
 
-  void onScan(String data) {
-    //TODO(Nash): Implement when api becomes available
-    // context.apiService.getUserProfile(data);
+  Future<void> onScan(String data) async {
+    if (canMakeRequest) {
+      canMakeRequest = false;
+      try {
+        await context.apiService.getUserProfile(data);
+        canMakeRequest = true;
+      } catch (e) {
+        canMakeRequest = true;
+        _hasError.value = true;
+        print(e);
+      }
+    }
   }
 
   Future<void> showCamera(bool value) async {

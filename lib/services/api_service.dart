@@ -18,8 +18,14 @@ class HttpAPIService implements APIService {
   Future<VikingUser> getUserProfile(String ticketID) async {
     final _rawId = parseTicketUrl(ticketID);
     final _user = await _fetchUserAccount(_rawId);
-    streamClient.setUser(
-      User(extraData: {"name": _user.name, "image": _user.image}),
+    await streamClient.setUser(
+      User(
+        id: _user.name,
+        extraData: {
+          "name": _user.name,
+          "image": _user.image,
+        },
+      ),
       _user.token,
     );
     return _user;

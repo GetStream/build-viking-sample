@@ -4,9 +4,8 @@ class BuildVikingCard extends StatelessWidget {
   const BuildVikingCard({
     Key key,
     @required this.child,
-    @required this.onTap,
-  })  : assert(onTap != null),
-        assert(child != null),
+    this.onTap,
+  })  : assert(child != null),
         super(key: key);
   final VoidCallback onTap;
   final Widget child;

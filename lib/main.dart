@@ -84,7 +84,7 @@ class _BuildVikingsState extends State<BuildVikings> {
               : BuildVikingCard(
                   key: ValueKey<String>("scan-ticket"),
                   onTap: () => showCamera(value),
-                  child: _ScanTicket(),
+                  child: _InfoCard(),
                 ),
         );
       },
@@ -137,7 +137,6 @@ class _BuildVikingsState extends State<BuildVikings> {
   }
 }
 
-class _ScanTicket extends StatelessWidget {
 class _TicketScanner extends StatelessWidget {
   const _TicketScanner({
     Key key,
@@ -190,6 +189,8 @@ class _TicketScanner extends StatelessWidget {
     );
   }
 }
+
+class _InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

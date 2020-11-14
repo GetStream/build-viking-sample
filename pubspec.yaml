@@ -15,7 +15,9 @@ dependencies:
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.1
   qr_code_scanner: 0.0.13
-  permission_handler:
+  permission_handler: 5.0.1+1
+  stream_chat_flutter: ^0.2.12
+  http: ^0.12.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

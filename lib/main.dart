@@ -137,6 +137,58 @@ class _BuildVikingsState extends State<BuildVikings> {
 }
 
 class _ScanTicket extends StatelessWidget {
+class _TicketScanner extends StatelessWidget {
+  const _TicketScanner({
+    Key key,
+    this.hasError,
+    this.onQRViewCreated,
+  })  : assert(hasError != null),
+        assert(onQRViewCreated != null),
+        super(key: key);
+
+  final ValueNotifier<bool> hasError;
+  final QRViewCreatedCallback onQRViewCreated;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 132.0,
+      width: 160.0,
+      child: ValueListenableBuilder(
+        valueListenable: hasError,
+        builder: (BuildContext context, value, _) {
+          if (!value) {
+            return QRView(
+              key: GlobalKey(),
+              onQRViewCreated: onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                borderColor: Colors.red,
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: 300,
+              ),
+            );
+          } else {
+            return InkWell(
+              onTap: () => hasError.value = !hasError.value,
+              child: Center(
+                child: Text(
+                  "We are unable to scan your ticket at this time.",
+                  style: GoogleFonts.inter(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white.withOpacity(0.6),
+                  ),
+                ),
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Column(

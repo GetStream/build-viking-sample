@@ -1,4 +1,4 @@
-import 'package:build_viking/assets.dart';
+import 'package:build_viking/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,26 +21,11 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool canDisplayImage = image != null && image.isNotEmpty;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         onTap: onTap,
-        leading: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 32,
-          child: Center(
-            child: canDisplayImage
-                ? Image.network(
-                    image,
-                    height: 56.0,
-                  )
-                : Image.asset(
-                    Assets.vikingDash,
-                    height: 56.0,
-                  ),
-          ),
-        ),
+        leading: UserImage(image: image),
         title: Text(
           name,
           style: GoogleFonts.caesarDressing(

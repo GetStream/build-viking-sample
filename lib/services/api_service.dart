@@ -3,6 +3,7 @@ import 'package:build_viking/services/services.dart';
 class HttpAPIService implements APIService {
   @override
   Future<void> getUserProfile(String ticketID) {
+  Future<VikingUser> getUserProfile(String ticketID) async {
     final _rawId = parseTicketUrl(ticketID);
     throw UnimplementedError();
   }

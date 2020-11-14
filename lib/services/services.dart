@@ -1,3 +1,5 @@
+import 'package:build_viking/models/user_model.dart';
+
 abstract class APIService {
-  Future<void> getUserProfile(final String ticketID);
+  Future<VikingUser> getUserProfile(final String ticketID);
 }

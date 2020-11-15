@@ -1,3 +1,4 @@
+export './branded_scaffold.dart';
 export './chat_item.dart';
 export './message_item.dart';
 export './user_image.dart';

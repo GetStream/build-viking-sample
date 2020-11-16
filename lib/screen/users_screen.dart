@@ -36,7 +36,9 @@ class UsersScreen extends StatelessWidget {
     final user = StreamChat.of(context).user;
     return BrandedScaffold(
       child: FutureBuilder(
-        future: client.queryUsers(),
+        future: client.queryUsers(filter: {
+          "id": {"\$ne": user.id}
+        }),
         builder: (
           BuildContext context,
           AsyncSnapshot<QueryUsersResponse> snapshot,
@@ -50,15 +52,14 @@ class UsersScreen extends StatelessWidget {
                   image: data.extraData['image'] ?? "",
                   subtitle:
                       "Last seen: ${formatDate(context, data.lastActive)}",
-                  name: data.extraData['name'] ?? "",
+                  name: buildText(data.extraData['name'] ?? ""),
                   onTap: () async {
                     final channel = client.channel("messaging",
                         id: "${data.id}-${user.id}",
                         extraData: {
                           "members": [data.id, user.id]
                         });
-                    await channel.create();
-                    //TODO(Nash):Pushing this route results in a black Screen
+                    await channel.watch();
                     context.nav.push(
                       MaterialPageRoute(
                         builder: (BuildContext context) {

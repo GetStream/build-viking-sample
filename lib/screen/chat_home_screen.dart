@@ -97,7 +97,7 @@ class ChatHomeScreen extends StatelessWidget {
             Channel channel,
           ) {
             return ChatItem(
-              name: channel.createdBy.name,
+              key: ValueKey<String>(channel.id),
               subtitle: formatDate(
                 context,
                 channel.lastMessageAt,

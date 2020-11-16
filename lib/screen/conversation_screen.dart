@@ -33,29 +33,31 @@ class ConversationScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 20.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ChannelName(),
-                  StreamBuilder<DateTime>(
-                    stream: channel.lastMessageAtStream,
-                    initialData: channel.lastMessageAt,
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null) {
-                        return SizedBox();
-                      }
-                      final jiffyDate = formatDate(context, snapshot.data);
-                      return Text(
-                        'Active $jiffyDate',
-                        style: StreamChatTheme.of(context)
-                            .channelTheme
-                            .channelHeaderTheme
-                            .lastMessageAt
-                            .copyWith(color: Colors.white),
-                      );
-                    },
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ChannelName(),
+                    StreamBuilder<DateTime>(
+                      stream: channel.lastMessageAtStream,
+                      initialData: channel.lastMessageAt,
+                      builder: (context, snapshot) {
+                        if (snapshot.data == null) {
+                          return SizedBox();
+                        }
+                        final jiffyDate = formatDate(context, snapshot.data);
+                        return Text(
+                          'Active $jiffyDate',
+                          style: StreamChatTheme.of(context)
+                              .channelTheme
+                              .channelHeaderTheme
+                              .lastMessageAt
+                              .copyWith(color: Colors.white),
+                        );
+                      },
+                    )
+                  ],
+                ),
               )
             ],
           ),

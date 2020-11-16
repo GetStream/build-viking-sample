@@ -2,6 +2,7 @@ import 'package:build_viking/assets.dart';
 import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class ConversationScreen extends StatelessWidget {
   @override
@@ -51,27 +52,30 @@ class ConversationScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              children: [
-                ...List.generate(
-                  6,
-                  (index) => index.isEven
-                      ? MessageItem(
-                          isSender: true,
-                          name: "Nash",
-                          timeStamp: "15:18 pm",
-                          message: "Hello there",
-                        )
-                      : MessageItem(
-                          name: "Nick",
-                          timeStamp: "15:18 pm",
-                          message: "Hello Nash",
-                        ),
-                )
-              ],
+            child: MessageListView(
+              messageBuilder: (BuildContext context, MessageDetails details,
+                  List<Message> messages) {
+                if (details.isMyMessage) {
+                  return MessageItem(
+                    name: details.message.user.name,
+                    timeStamp: MaterialLocalizations.of(context)
+                        .formatMediumDate(details.message.createdAt),
+                    message: details.message.text,
+                    imageUrl: details.message.user.extraData['image'],
+                    isSender: true,
+                  );
+                }
+                return MessageItem(
+                  name: details.message.user.name,
+                  timeStamp: MaterialLocalizations.of(context)
+                      .formatMediumDate(details.message.createdAt),
+                  message: details.message.text,
+                  imageUrl: details.message.user.extraData['image'],
+                );
+              },
             ),
           ),
-          Container(),
+          MessageInput(),
         ],
       ),
     );

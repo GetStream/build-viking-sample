@@ -1,3 +1,4 @@
+import 'package:build_viking/screen/conversation_screen.dart';
 import 'package:build_viking/screen/users_screen.dart';
 import 'package:build_viking/utils/utils.dart';
 import 'package:build_viking/widgets/widgets.dart';
@@ -44,7 +45,7 @@ class ChatHomeScreen extends StatelessWidget {
           pagination: PaginationParams(
             limit: 20,
           ),
-          channelWidget: Container(),
+          channelWidget: ConversationScreen(),
           errorBuilder: (error) {
             return buildMessageCard(
               "We could not load your messages at this time.",
@@ -70,7 +71,8 @@ class ChatHomeScreen extends StatelessWidget {
           ) {
             return ChatItem(
               name: channel.createdBy.name,
-              subtitle: MaterialLocalizations.of(context).formatMediumDate(
+              subtitle: formatDate(
+                context,
                 channel.lastMessageAt,
               ),
               onTap: () {},

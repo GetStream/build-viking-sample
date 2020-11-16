@@ -1,3 +1,5 @@
+import 'package:build_viking/screen/conversation_screen.dart';
+import 'package:build_viking/utils/utils.dart';
 import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,9 +32,11 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final client = StreamChat.of(context).client;
+    final user = StreamChat.of(context).user;
     return BrandedScaffold(
       child: FutureBuilder(
-        future: StreamChat.of(context).client.queryUsers(),
+        future: client.queryUsers(),
         builder: (
           BuildContext context,
           AsyncSnapshot<QueryUsersResponse> snapshot,
@@ -43,13 +47,28 @@ class UsersScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final data = snapshot.data.users[index];
                 return ChatItem(
-                  image: data.extraData['image'],
-                  lastMessage:
-                      MaterialLocalizations.of(context).formatMediumDate(
-                    data.lastActive,
-                  ),
-                  name: data.extraData['name'],
-                  onTap: null,
+                  image: data.extraData['image'] ?? "",
+                  subtitle:
+                      "Last seen: ${formatDate(context, data.lastActive)}",
+                  name: data.extraData['name'] ?? "",
+                  onTap: () async {
+                    final channel = client.channel("messaging",
+                        id: "${data.id}-${user.id}",
+                        extraData: {
+                          "members": [data.id, user.id]
+                        });
+                    await channel.create();
+                    context.nav.push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return StreamChannel(
+                            channel: channel,
+                            child: ConversationScreen(),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 );
               },
             );

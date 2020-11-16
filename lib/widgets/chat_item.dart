@@ -1,20 +1,19 @@
 import 'package:build_viking/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class ChatItem extends StatelessWidget {
   const ChatItem({
     Key key,
-    @required this.name,
     @required this.subtitle,
     @required this.onTap,
     @required this.image,
-  })  : assert(name != null),
-        assert(subtitle != null),
+    this.name,
+  })  : assert(subtitle != null),
         assert(image != null),
         super(key: key);
-
-  final String name;
+  final Widget name;
   final String subtitle;
   final VoidCallback onTap;
   final String image;
@@ -26,13 +25,13 @@ class ChatItem extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: UserImage(image: image),
-        title: Text(
-          name,
-          style: GoogleFonts.caesarDressing(
-            fontSize: 20.0,
-            color: Colors.white,
-          ),
-        ),
+        title: name ??
+            ChannelName(
+              textStyle: GoogleFonts.caesarDressing(
+                fontSize: 20.0,
+                color: Colors.white,
+              ),
+            ),
         subtitle: Text(
           subtitle,
           style: GoogleFonts.inter(

@@ -58,6 +58,7 @@ class UsersScreen extends StatelessWidget {
                           "members": [data.id, user.id]
                         });
                     await channel.create();
+                    //TODO(Nash):Pushing this route results in a black Screen
                     context.nav.push(
                       MaterialPageRoute(
                         builder: (BuildContext context) {

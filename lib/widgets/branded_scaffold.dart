@@ -6,9 +6,11 @@ class BrandedScaffold extends StatelessWidget {
   const BrandedScaffold({
     Key key,
     @required this.child,
+    this.header,
   })  : assert(child != null),
         super(key: key);
   final Widget child;
+  final Widget header;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class BrandedScaffold extends StatelessWidget {
             children: [
               SizedBox(height: viewPadding.top + 12.0),
               VikingChatLogo(),
+              if (header != null) header,
               const SizedBox(height: 12.0),
               Expanded(
                 child: child,

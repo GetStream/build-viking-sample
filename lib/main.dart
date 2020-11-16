@@ -36,6 +36,9 @@ class App extends StatelessWidget {
       builder: (BuildContext context, Widget child) {
         return StreamChat(
           streamChatThemeData: StreamChatThemeData(
+            channelTheme: ChannelTheme(
+              inputBackground: Color(0xFF000A51),
+            ),
             backgroundColor: Color(0xFF000A51),
             defaultUserImage: (_, user) => UserImage(
               image: user.extraData['image'] ?? "",

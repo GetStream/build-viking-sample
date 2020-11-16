@@ -29,6 +29,14 @@ class ChatHomeScreen extends StatelessWidget {
     );
   }
 
+  void _navigateToUsers(BuildContext context) {
+    context.nav.push(
+      MaterialPageRoute(
+        builder: (context) => UsersScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewPadding = MediaQuery.of(context).viewPadding;
@@ -43,6 +51,7 @@ class ChatHomeScreen extends StatelessWidget {
             right: 24.0,
           ),
           child: FlatButton.icon(
+            onPressed: () => _navigateToUsers(context),
             label: Text(
               "Create new chat",
               style: GoogleFonts.inter(
@@ -76,11 +85,7 @@ class ChatHomeScreen extends StatelessWidget {
           },
           emptyBuilder: (context) {
             return InkWell(
-              onTap: () => context.nav.push(
-                MaterialPageRoute(
-                  builder: (context) => UsersScreen(),
-                ),
-              ),
+              onTap: () => _navigateToUsers(context),
               child: buildMessageCard(
                 "Tap to get started.",
                 viewPadding.bottom + 24.0,

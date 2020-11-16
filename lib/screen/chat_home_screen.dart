@@ -70,7 +70,7 @@ class ChatHomeScreen extends StatelessWidget {
           ) {
             return ChatItem(
               name: channel.createdBy.name,
-              lastMessage: MaterialLocalizations.of(context).formatMediumDate(
+              subtitle: MaterialLocalizations.of(context).formatMediumDate(
                 channel.lastMessageAt,
               ),
               onTap: () {},

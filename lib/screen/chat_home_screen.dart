@@ -34,6 +34,28 @@ class ChatHomeScreen extends StatelessWidget {
     final viewPadding = MediaQuery.of(context).viewPadding;
     final id = StreamChat.of(context).user.id;
     return BrandedScaffold(
+      header: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 12.0,
+            top: 24.0,
+            right: 24.0,
+          ),
+          child: FlatButton.icon(
+            label: Text(
+              "Create new chat",
+              style: GoogleFonts.inter(
+                color: Colors.white.withOpacity(0.55),
+              ),
+            ),
+            icon: Icon(
+              Icons.add,
+              color: Colors.white.withOpacity(0.5),
+            ),
+          ),
+        ),
+      ),
       child: ChannelsBloc(
         child: ChannelListView(
           filter: {

@@ -6,16 +6,16 @@ class ChatItem extends StatelessWidget {
   const ChatItem({
     Key key,
     @required this.name,
-    @required this.lastMessage,
+    @required this.subtitle,
     @required this.onTap,
     @required this.image,
   })  : assert(name != null),
-        assert(lastMessage != null),
+        assert(subtitle != null),
         assert(image != null),
         super(key: key);
 
   final String name;
-  final String lastMessage;
+  final String subtitle;
   final VoidCallback onTap;
   final String image;
 
@@ -34,7 +34,7 @@ class ChatItem extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          lastMessage,
+          subtitle,
           style: GoogleFonts.inter(
             fontSize: 12.0,
             color: Colors.white.withOpacity(0.3),

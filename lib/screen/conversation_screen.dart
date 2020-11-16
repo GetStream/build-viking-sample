@@ -1,4 +1,5 @@
 import 'package:build_viking/assets.dart';
+import 'package:build_viking/utils/utils.dart';
 import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,46 +8,57 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 class ConversationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final channel = StreamChannel.of(context).channel;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        leading: BackButton(),
+        leading: BackButton(
+          color: Colors.white,
+        ),
         centerTitle: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircleAvatar(
-              radius: 24.0,
-              backgroundColor: Colors.white,
-              child: Center(
-                child: Image.asset(
-                  Assets.vikingDash,
-                  height: 56.0,
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                radius: 20.0,
+                backgroundColor: Colors.white,
+                child: Center(
+                  child: Image.asset(
+                    Assets.vikingDash,
+                    height: 56.0,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 20.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Nash R",
-                  style: GoogleFonts.caesarDressing(
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  "Active Now",
-                  style: GoogleFonts.inter(
-                    fontSize: 12.0,
-                    color: Colors.white.withOpacity(0.64),
-                  ),
-                ),
-              ],
-            )
-          ],
+              const SizedBox(width: 20.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ChannelName(),
+                  StreamBuilder<DateTime>(
+                    stream: channel.lastMessageAtStream,
+                    initialData: channel.lastMessageAt,
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return SizedBox();
+                      }
+                      final jiffyDate = formatDate(context, snapshot.data);
+                      return Text(
+                        'Active $jiffyDate',
+                        style: StreamChatTheme.of(context)
+                            .channelTheme
+                            .channelHeaderTheme
+                            .lastMessageAt
+                            .copyWith(color: Colors.white),
+                      );
+                    },
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
       body: Column(
@@ -75,7 +87,10 @@ class ConversationScreen extends StatelessWidget {
               },
             ),
           ),
-          MessageInput(),
+          MessageInput(
+            inputTextStyle: GoogleFonts.inter(color: Colors.white),
+            attachmentIconColor: Colors.white,
+          ),
         ],
       ),
     );

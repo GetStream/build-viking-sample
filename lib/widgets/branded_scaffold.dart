@@ -6,7 +6,7 @@ class BrandedScaffold extends StatelessWidget {
   const BrandedScaffold({
     Key key,
     @required this.child,
-  })  : assert(child != child),
+  })  : assert(child != null),
         super(key: key);
   final Widget child;
 

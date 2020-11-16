@@ -15,7 +15,7 @@ class UserImage extends StatelessWidget {
         child: Center(
           child: Image.network(
             image,
-            height: 56.0,
+            height: 32.0,
           ),
         ),
       );

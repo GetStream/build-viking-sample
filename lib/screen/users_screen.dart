@@ -60,7 +60,13 @@ class UsersScreen extends StatelessWidget {
                 width: 200.0,
                 child: BuildVikingCard(
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: Text(
+                      "We are having some difficulties loading users",
+                      style: GoogleFonts.inter(
+                        color: Colors.white.withOpacity(0.6),
+                        fontSize: 16.0,
+                      ),
+                    ),
                   ),
                 ),
               ),

@@ -30,6 +30,16 @@ class UsersScreen extends StatelessWidget {
     );
   }
 
+  Widget buildText(final String text) {
+    return Text(
+      text,
+      style: GoogleFonts.caesarDressing(
+        fontSize: 20.0,
+        color: Colors.white,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final client = StreamChat.of(context).client;

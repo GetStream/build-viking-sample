@@ -1,6 +1,5 @@
 import 'package:build_viking/assets.dart';
 import 'package:build_viking/utils/utils.dart';
-import 'package:build_viking/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
@@ -67,24 +66,78 @@ class ConversationScreen extends StatelessWidget {
         children: [
           Expanded(
             child: MessageListView(
-              messageBuilder: (BuildContext context, MessageDetails details,
-                  List<Message> messages) {
-                if (details.isMyMessage) {
-                  return MessageItem(
-                    name: details.message.user.name,
-                    timeStamp: MaterialLocalizations.of(context)
-                        .formatMediumDate(details.message.createdAt),
-                    message: details.message.text,
-                    imageUrl: details.message.user.extraData['image'],
-                    isSender: true,
-                  );
-                }
-                return MessageItem(
-                  name: details.message.user.name,
-                  timeStamp: MaterialLocalizations.of(context)
-                      .formatMediumDate(details.message.createdAt),
-                  message: details.message.text,
-                  imageUrl: details.message.user.extraData['image'],
+              messageBuilder: (
+                BuildContext context,
+                MessageDetails details,
+                List<Message> messages,
+              ) {
+                final theme = StreamChatTheme.of(context);
+                return Column(
+                  crossAxisAlignment: details.isMyMessage
+                      ? CrossAxisAlignment.end
+                      : CrossAxisAlignment.start,
+                  children: [
+                    MessageWidget(
+                      message: details.message,
+                      messageTheme: details.isMyMessage
+                          ? theme.ownMessageTheme
+                          : theme.otherMessageTheme,
+                      showUserAvatar: details.isMyMessage
+                          ? DisplayWidget.gone
+                          : (details.isNextUser
+                              ? DisplayWidget.hide
+                              : DisplayWidget.show),
+                      showTimestamp: false,
+                      showSendingIndicator: details.isNextUser
+                          ? DisplayWidget.hide
+                          : DisplayWidget.show,
+                      showEditMessage: false,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0),
+                          bottomLeft: Radius.circular(0.0),
+                          bottomRight: Radius.circular(12.0),
+                        ),
+                      ),
+                      showUsername: false,
+                      reverse: details.isMyMessage,
+                    ),
+                    if (!details.isNextUser)
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: details.isMyMessage ? 24.0 : 68,
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(
+                                MaterialLocalizations.of(context)
+                                    .formatMediumDate(
+                                        details.message.createdAt),
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              details.isMyMessage
+                                  ? "You"
+                                  : details.message.user.name,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                          mainAxisAlignment: details.isMyMessage
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
+                        ),
+                      ),
+                  ],
                 );
               },
             ),

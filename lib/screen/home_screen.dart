@@ -18,7 +18,8 @@ class _BuildVikingsState extends State<BuildVikings> {
   bool canMakeRequest = true;
 
   void _onQRViewCreated(QRViewController controller) {
-    controller.scannedDataStream.listen((onScan));
+    onScan('p4b0sTS1KAZWBHowwD66SrA');
+    controller.scannedDataStream.listen(onScan);
   }
 
   Future<void> onScan(String data) async {

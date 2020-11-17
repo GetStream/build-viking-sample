@@ -36,6 +36,24 @@ class App extends StatelessWidget {
       builder: (BuildContext context, Widget child) {
         return StreamChat(
           streamChatThemeData: StreamChatThemeData(
+            ownMessageTheme: MessageTheme(
+              messageBackgroundColor: Color(0xFF4FC6F9),
+              createdAt: TextStyle(
+                color: Colors.white,
+              ),
+              messageText: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            otherMessageTheme: MessageTheme(
+              messageBackgroundColor: Color(0xFF000040),
+              createdAt: TextStyle(
+                color: Colors.white,
+              ),
+              messageText: TextStyle(
+                color: Colors.white,
+              ),
+            ),
             channelTheme: ChannelTheme(
               inputBackground: Color(0xFF000A51),
             ),

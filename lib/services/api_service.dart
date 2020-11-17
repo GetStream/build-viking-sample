@@ -20,7 +20,7 @@ class HttpAPIService implements APIService {
     final _user = await _fetchUserAccount(_rawId);
     await streamClient.setUser(
       User(
-        id: _user.name,
+        id: ticketID,
         extraData: {
           "name": _user.name,
           "image": _user.image,
@@ -37,8 +37,8 @@ class HttpAPIService implements APIService {
       final http.Response response = await client.post(
         API.apiUrl,
         body: jsonEncode({
-          "id": "pFbDZCGsZIrrAmqELjz6F8w",
-        }), // TODO:Replace with variable once API is fixed.
+          "id": ticketID,
+        }),
         headers: {"Content-Type": "application/json"},
       );
 

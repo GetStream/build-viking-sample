@@ -20,7 +20,7 @@ class HttpAPIService implements APIService {
     final _user = await _fetchUserAccount(_rawId);
     await streamClient.setUser(
       User(
-        id: ticketID,
+        id: _rawId,
         extraData: {
           "name": _user.name,
           "image": _user.image,

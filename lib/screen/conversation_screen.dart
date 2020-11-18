@@ -66,6 +66,18 @@ class ConversationScreen extends StatelessWidget {
         children: [
           Expanded(
             child: MessageListView(
+              dateDividerBuilder: (date) {
+                return Theme(
+                  data: ThemeData(
+                    textTheme: TextTheme(
+                      headline6: TextStyle(color: Colors.white)
+                    ),
+                  ),
+                  child: DateDivider(
+                    dateTime: date,
+                  ),
+                );
+              },
               messageBuilder: (
                 BuildContext context,
                 MessageDetails details,

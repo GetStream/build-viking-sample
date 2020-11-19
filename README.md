@@ -1,6 +1,8 @@
 # Build Viking 🛠
-![Demo Gif](./demo.gif)
 This repo contains sample code for Stream's Build Viking activity. 
+![Demo Gif](./demo.gif)
+
+<br/>
 
 ### Prerequisites 🧬
 This to run this application, you must have the following:
@@ -14,6 +16,8 @@ class API {
   static const streamApi = "YOUR_STREAM_API_KEY";
 }
 ```
+
+<br/>
 
 ### Build Instructions 
 This project consists of two parts, the application (this repo) and a simple API that verifies a Flutter Viking ticket ID and creates a [Stream] user associated with that ID.

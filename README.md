@@ -1,3 +1,5 @@
+> **This repository is archived and no longer maintained.** For a current alternative, see [the stream-chat-flutter sample app](https://github.com/GetStream/stream-chat-flutter/tree/master/sample_app).
+
 # Build Viking 🛠
 This repo contains sample code for Stream's Build Viking activity. 
 ![Demo Gif](./demo.gif)
